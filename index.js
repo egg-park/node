@@ -3,9 +3,9 @@ const app = express()
 const port = 5000
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const config = require("./config/key");
-const {User} = require("./models/User");
-const {auth} = require('./middleware/auth');
+const config = require("./server/config/key");
+const {User} = require("./server/models/User");
+const {auth} = require('./server/middleware/auth');
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({extended:true}));
@@ -18,9 +18,12 @@ mongoose.connect(config.mongoURI, {
 }).then(() => console.groupCollapsed('MongoDB Connected...'))
 .catch(err => console.log(err))
 
-
 app.get('/', (req, res) => {
   res.send('Hello World! ~ 안녕하세요~ 박혜란짱2')
+})
+
+app.get('/api/hello', (req,res) => {
+  res.send("안녕하세요 ~");
 })
 
 app.post('/register', (req,res) => {
